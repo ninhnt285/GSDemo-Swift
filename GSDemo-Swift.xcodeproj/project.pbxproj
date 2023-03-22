@@ -7,23 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		015A5F9429B68E8200E9CA57 /* DJIAircraftAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015A5F9329B68E8200E9CA57 /* DJIAircraftAnnotation.swift */; };
+		01B0936829B6E87400A58671 /* DJIAircraftAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0936729B6E87400A58671 /* DJIAircraftAnnotationView.swift */; };
+		01B0936A29B6F3D100A58671 /* DemoUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0936929B6F3D100A58671 /* DemoUtility.swift */; };
+		01B0936D29B7C5A100A58671 /* DJIGSButtonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0936B29B7C5A100A58671 /* DJIGSButtonViewController.swift */; };
+		01B0936E29B7C5A100A58671 /* DJIGSButtonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01B0936C29B7C5A100A58671 /* DJIGSButtonViewController.xib */; };
+		01B0937129BA491000A58671 /* DJIWaypointConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B0936F29BA491000A58671 /* DJIWaypointConfigViewController.swift */; };
+		01B0937229BA491000A58671 /* DJIWaypointConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01B0937029BA491000A58671 /* DJIWaypointConfigViewController.xib */; };
 		01CCF8F829B64E3C00ABDC2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CCF8F729B64E3C00ABDC2C /* AppDelegate.swift */; };
 		01CCF8FA29B64E3C00ABDC2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CCF8F929B64E3C00ABDC2C /* SceneDelegate.swift */; };
-		01CCF8FC29B64E3C00ABDC2C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CCF8FB29B64E3C00ABDC2C /* ViewController.swift */; };
 		01CCF8FF29B64E3C00ABDC2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01CCF8FD29B64E3C00ABDC2C /* Main.storyboard */; };
 		01CCF90129B64E3E00ABDC2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01CCF90029B64E3E00ABDC2C /* Assets.xcassets */; };
 		01CCF90429B64E3E00ABDC2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01CCF90229B64E3E00ABDC2C /* LaunchScreen.storyboard */; };
+		01CCF90C29B64FAA00ABDC2C /* DJIRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CCF90B29B64FAA00ABDC2C /* DJIRootViewController.swift */; };
+		01CCF90E29B6548D00ABDC2C /* DJIMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CCF90D29B6548D00ABDC2C /* DJIMapController.swift */; };
+		01FA3D1329CA4A9700344977 /* map1.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FA3D1229CA4A9700344977 /* map1.json */; };
+		01FA3D1529CA97DC00344977 /* MapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D1429CA97DC00344977 /* MapNode.swift */; };
+		01FA3D1729CAA7F100344977 /* MapNodeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D1629CAA7F100344977 /* MapNodeAnnotation.swift */; };
+		01FA3D1929CAA9EF00344977 /* MapNodeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D1829CAA9EF00344977 /* MapNodeAnnotationView.swift */; };
+		FB213F5AB4A3BAAA90902164 /* libPods-GSDemo-Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ED5063C0A55A17D24B93C6 /* libPods-GSDemo-Swift.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		015A5F9329B68E8200E9CA57 /* DJIAircraftAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIAircraftAnnotation.swift; sourceTree = "<group>"; };
+		01B0936729B6E87400A58671 /* DJIAircraftAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIAircraftAnnotationView.swift; sourceTree = "<group>"; };
+		01B0936929B6F3D100A58671 /* DemoUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUtility.swift; sourceTree = "<group>"; };
+		01B0936B29B7C5A100A58671 /* DJIGSButtonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIGSButtonViewController.swift; sourceTree = "<group>"; };
+		01B0936C29B7C5A100A58671 /* DJIGSButtonViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DJIGSButtonViewController.xib; sourceTree = "<group>"; };
+		01B0936F29BA491000A58671 /* DJIWaypointConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIWaypointConfigViewController.swift; sourceTree = "<group>"; };
+		01B0937029BA491000A58671 /* DJIWaypointConfigViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DJIWaypointConfigViewController.xib; sourceTree = "<group>"; };
 		01CCF8F429B64E3C00ABDC2C /* GSDemo-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GSDemo-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01CCF8F729B64E3C00ABDC2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01CCF8F929B64E3C00ABDC2C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		01CCF8FB29B64E3C00ABDC2C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		01CCF8FE29B64E3C00ABDC2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01CCF90029B64E3E00ABDC2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01CCF90329B64E3E00ABDC2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01CCF90529B64E3E00ABDC2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01CCF90B29B64FAA00ABDC2C /* DJIRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIRootViewController.swift; sourceTree = "<group>"; };
+		01CCF90D29B6548D00ABDC2C /* DJIMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIMapController.swift; sourceTree = "<group>"; };
+		01FA3D1229CA4A9700344977 /* map1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map1.json; sourceTree = "<group>"; };
+		01FA3D1429CA97DC00344977 /* MapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNode.swift; sourceTree = "<group>"; };
+		01FA3D1629CAA7F100344977 /* MapNodeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNodeAnnotation.swift; sourceTree = "<group>"; };
+		01FA3D1829CAA9EF00344977 /* MapNodeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNodeAnnotationView.swift; sourceTree = "<group>"; };
+		3278292941D89A5786E71D44 /* Pods-GSDemo-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GSDemo-Swift.debug.xcconfig"; path = "Target Support Files/Pods-GSDemo-Swift/Pods-GSDemo-Swift.debug.xcconfig"; sourceTree = "<group>"; };
+		4EE1288561BDB72024F477EA /* Pods-GSDemo-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GSDemo-Swift.release.xcconfig"; path = "Target Support Files/Pods-GSDemo-Swift/Pods-GSDemo-Swift.release.xcconfig"; sourceTree = "<group>"; };
+		97ED5063C0A55A17D24B93C6 /* libPods-GSDemo-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GSDemo-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB213F5AB4A3BAAA90902164 /* libPods-GSDemo-Swift.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +71,8 @@
 			children = (
 				01CCF8F629B64E3C00ABDC2C /* GSDemo-Swift */,
 				01CCF8F529B64E3C00ABDC2C /* Products */,
+				B0B9BFEB98AC643C433A073C /* Pods */,
+				E2AE93010D9E2E0D7B325CEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +87,52 @@
 		01CCF8F629B64E3C00ABDC2C /* GSDemo-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				01FA3D1129CA496400344977 /* maps */,
+				01CCF90B29B64FAA00ABDC2C /* DJIRootViewController.swift */,
 				01CCF8F729B64E3C00ABDC2C /* AppDelegate.swift */,
 				01CCF8F929B64E3C00ABDC2C /* SceneDelegate.swift */,
-				01CCF8FB29B64E3C00ABDC2C /* ViewController.swift */,
+				015A5F9329B68E8200E9CA57 /* DJIAircraftAnnotation.swift */,
+				01B0936729B6E87400A58671 /* DJIAircraftAnnotationView.swift */,
+				01CCF90D29B6548D00ABDC2C /* DJIMapController.swift */,
+				01B0936B29B7C5A100A58671 /* DJIGSButtonViewController.swift */,
+				01B0936C29B7C5A100A58671 /* DJIGSButtonViewController.xib */,
+				01B0936F29BA491000A58671 /* DJIWaypointConfigViewController.swift */,
+				01B0937029BA491000A58671 /* DJIWaypointConfigViewController.xib */,
 				01CCF8FD29B64E3C00ABDC2C /* Main.storyboard */,
-				01CCF90029B64E3E00ABDC2C /* Assets.xcassets */,
 				01CCF90229B64E3E00ABDC2C /* LaunchScreen.storyboard */,
+				01CCF90029B64E3E00ABDC2C /* Assets.xcassets */,
+				01B0936929B6F3D100A58671 /* DemoUtility.swift */,
 				01CCF90529B64E3E00ABDC2C /* Info.plist */,
 			);
 			path = "GSDemo-Swift";
+			sourceTree = "<group>";
+		};
+		01FA3D1129CA496400344977 /* maps */ = {
+			isa = PBXGroup;
+			children = (
+				01FA3D1229CA4A9700344977 /* map1.json */,
+				01FA3D1429CA97DC00344977 /* MapNode.swift */,
+				01FA3D1629CAA7F100344977 /* MapNodeAnnotation.swift */,
+				01FA3D1829CAA9EF00344977 /* MapNodeAnnotationView.swift */,
+			);
+			path = maps;
+			sourceTree = "<group>";
+		};
+		B0B9BFEB98AC643C433A073C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3278292941D89A5786E71D44 /* Pods-GSDemo-Swift.debug.xcconfig */,
+				4EE1288561BDB72024F477EA /* Pods-GSDemo-Swift.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E2AE93010D9E2E0D7B325CEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97ED5063C0A55A17D24B93C6 /* libPods-GSDemo-Swift.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +142,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 01CCF90829B64E3E00ABDC2C /* Build configuration list for PBXNativeTarget "GSDemo-Swift" */;
 			buildPhases = (
+				39E5988483E1D9678DC423E9 /* [CP] Check Pods Manifest.lock */,
 				01CCF8F029B64E3C00ABDC2C /* Sources */,
 				01CCF8F129B64E3C00ABDC2C /* Frameworks */,
 				01CCF8F229B64E3C00ABDC2C /* Resources */,
+				52994CAAAA447CFC4E37D3CA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,21 +195,75 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01B0936E29B7C5A100A58671 /* DJIGSButtonViewController.xib in Resources */,
+				01B0937229BA491000A58671 /* DJIWaypointConfigViewController.xib in Resources */,
 				01CCF90429B64E3E00ABDC2C /* LaunchScreen.storyboard in Resources */,
 				01CCF90129B64E3E00ABDC2C /* Assets.xcassets in Resources */,
 				01CCF8FF29B64E3C00ABDC2C /* Main.storyboard in Resources */,
+				01FA3D1329CA4A9700344977 /* map1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		39E5988483E1D9678DC423E9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GSDemo-Swift-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52994CAAAA447CFC4E37D3CA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GSDemo-Swift/Pods-GSDemo-Swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GSDemo-Swift/Pods-GSDemo-Swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GSDemo-Swift/Pods-GSDemo-Swift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		01CCF8F029B64E3C00ABDC2C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01CCF8FC29B64E3C00ABDC2C /* ViewController.swift in Sources */,
+				01FA3D1929CAA9EF00344977 /* MapNodeAnnotationView.swift in Sources */,
+				01CCF90C29B64FAA00ABDC2C /* DJIRootViewController.swift in Sources */,
+				01FA3D1729CAA7F100344977 /* MapNodeAnnotation.swift in Sources */,
+				015A5F9429B68E8200E9CA57 /* DJIAircraftAnnotation.swift in Sources */,
 				01CCF8F829B64E3C00ABDC2C /* AppDelegate.swift in Sources */,
+				01B0936829B6E87400A58671 /* DJIAircraftAnnotationView.swift in Sources */,
+				01FA3D1529CA97DC00344977 /* MapNode.swift in Sources */,
+				01B0936D29B7C5A100A58671 /* DJIGSButtonViewController.swift in Sources */,
+				01B0937129BA491000A58671 /* DJIWaypointConfigViewController.swift in Sources */,
+				01B0936A29B6F3D100A58671 /* DemoUtility.swift in Sources */,
+				01CCF90E29B6548D00ABDC2C /* DJIMapController.swift in Sources */,
 				01CCF8FA29B64E3C00ABDC2C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +406,7 @@
 		};
 		01CCF90929B64E3E00ABDC2C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3278292941D89A5786E71D44 /* Pods-GSDemo-Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -290,11 +415,16 @@
 				DEVELOPMENT_TEAM = DXSH86JF46;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GSDemo-Swift/Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth Always";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Locaion When In Use";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location Always";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "When In Use";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,6 +440,7 @@
 		};
 		01CCF90A29B64E3E00ABDC2C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4EE1288561BDB72024F477EA /* Pods-GSDemo-Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -318,11 +449,16 @@
 				DEVELOPMENT_TEAM = DXSH86JF46;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "GSDemo-Swift/Info.plist";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth Always";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Locaion When In Use";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Location Always";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "When In Use";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
