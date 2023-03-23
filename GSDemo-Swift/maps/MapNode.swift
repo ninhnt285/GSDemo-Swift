@@ -54,7 +54,7 @@ class MapModel: NSObject {
         return sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y))
     }
     
-    func findBestRoute(minElevation: Double) -> [MapNode] {
+    func findBestRoute(minElevation: Double, minDistance: Double = 25.0) -> [MapNode] {
         var distance : [Int64: Double] = [:]
         var trace: [Int64: Int64] = [:]
         var visited: Set<Int64> = []
@@ -107,9 +107,22 @@ class MapModel: NSObject {
         
         var lastId = mapData.end
         var routes: [MapNode] = [nodeDict[lastId]!]
+        
+        
         while trace[lastId] != -1 {
-            routes.insert(nodeDict[lastId]!, at: 0)
             lastId = trace[lastId]!
+            
+            let lastLocation = CLLocation(latitude: routes.first!.lat, longitude: routes.first!.lon)
+            var nodeLocation = CLLocation(latitude: nodeDict[lastId]!.lat, longitude: nodeDict[lastId]!.lon)
+            while (lastLocation.distance(from: nodeLocation) < minDistance && trace[lastId]! != -1) {
+                lastId = trace[lastId]!
+                nodeLocation = CLLocation(latitude: nodeDict[lastId]!.lat, longitude: nodeDict[lastId]!.lon)
+            }
+            
+            if trace[lastId]! == -1 {
+                break
+            }
+            routes.insert(nodeDict[lastId]!, at: 0)
         }
         
         return routes

@@ -19,6 +19,15 @@ class DJIMapController: NSObject {
         self.editPoints = [CLLocation]()
     }
     
+    func addLocationFromRoute(_ node: MapNode, withMapView mapView: MKMapView) {
+        let location = CLLocation(latitude: node.lat, longitude: node.lon)
+        
+        self.editPoints.append(location)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location.coordinate
+        mapView.addAnnotation(annotation)
+    }
+    
     func addPoint(_ point: CGPoint, withMapView mapView: MKMapView) {
         let coordinate = mapView.convert(point, toCoordinateFrom: mapView)
         let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
@@ -38,7 +47,6 @@ class DJIMapController: NSObject {
                 mapView.removeAnnotation(anno)
             }
         }
-        
     }
     
     func wayPoints() -> [CLLocation] {

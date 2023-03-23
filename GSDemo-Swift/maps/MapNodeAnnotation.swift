@@ -11,6 +11,9 @@ import MapKit
 class MapNodeAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var mapNode: MapNode!
+    var index: Int = 0
+    var onRoute: Bool = false
+    
     weak var annotationView: MapNodeAnnotationView?
     var visited: Bool = false
     

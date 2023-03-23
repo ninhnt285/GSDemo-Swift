@@ -13,13 +13,14 @@ enum DJIGSViewMode {
 }
 
 protocol DJIGSButtonViewControllerDelegate {
-    func stopBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController)
-    func clearBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController)
-    func focusBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController)
-    func startBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController)
+    func stopBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?)
+    func clearBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?)
+    func focusBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?)
+    func startBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?)
     func addBtnActionInGSButtonVC(addBtn: UIButton, GSBtnVC: DJIGSButtonViewController)
-    func configBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController)
+    func configBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?)
     func switchToMode(_ mode: DJIGSViewMode, inGSButtonVC GSBtnVC: DJIGSButtonViewController)
+    func findRouteBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?)
 }
 
 class DJIGSButtonViewController: UIViewController {
@@ -31,6 +32,7 @@ class DJIGSButtonViewController: UIViewController {
     @IBOutlet weak var stopBtn: UIButton!
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var focusBtn: UIButton!
+    @IBOutlet weak var findRouteBtn: UIButton!
     
     var delegate: DJIGSButtonViewControllerDelegate?
     var mode: DJIGSViewMode = .view
@@ -47,6 +49,7 @@ class DJIGSButtonViewController: UIViewController {
         stopBtn.isHidden = (mode == .view)
         addBtn.isHidden = (mode == .view)
         configBtn.isHidden = (mode == .view)
+        findRouteBtn.isHidden = (mode == .view)
     }
     
     
@@ -82,5 +85,9 @@ class DJIGSButtonViewController: UIViewController {
     
     @IBAction func focusBtnAction(_ sender: Any) {
         self.delegate?.focusBtnActionInGSButtonVC(GSBtnVC: self)
+    }
+    
+    @IBAction func findRouteBtnAction(_ sender: Any) {
+        self.delegate?.findRouteBtnActionInGSButtonVC(GSBtnVC: self)
     }
 }

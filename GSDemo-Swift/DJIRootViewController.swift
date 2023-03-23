@@ -139,21 +139,33 @@ class DJIRootViewController: UIViewController {
                 let jsonData = try decoder.decode(MapData.self, from: data)
                 self.mapModel = MapModel(mapData: jsonData)
                 // Display all nodes on map
-//                let routes = self.mapModel.findBestRoute(minElevation: self.minElevation)
-                
-                for node in jsonData.nodes {
-                    let point = MapNodeAnnotation(mapNode: node)
-                    self.mapView.addAnnotation(point)
-                }
+                self.reloadMapAnnotation()
             } catch {
                 print(error)
             }
         }
     }
     
-    @IBAction func floodedBtnAction(_ sender: Any) {
-        if CLLocationCoordinate2DIsValid(self.droneLocation) {
-            self.minElevation = self.mapModel.findNearElevation(self.droneLocation)
+    func reloadMapAnnotation(routes: [MapNode] = []) {
+        self.mapController.cleanAllPointsWithMapView(mapView: self.mapView)
+        
+        let drawNodes = mapModel.mapData.nodes
+        var routeIds: Set<Int64> = []
+        for node in routes {
+            routeIds.insert(node.id)
+        }
+        
+        for i in 0..<drawNodes.count {
+            let node = drawNodes[i]
+            let point = MapNodeAnnotation(mapNode: node)
+            point.index = i
+            if routeIds.contains(node.id) {
+                point.onRoute = true
+            }
+            
+            if routes.count == 0 || point.onRoute || point.mapNode.elevation < self.minElevation {
+                self.mapView.addAnnotation(point)
+            }
         }
     }
 }
@@ -173,7 +185,6 @@ extension DJIRootViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             let alert = UIAlertController(title: "Location Service is not available", message: "", preferredStyle: UIAlertController.Style.alert)
             self.present(alert, animated: true)
         } else if (status == .authorizedWhenInUse || status == .authorizedAlways) {
-            print("Accepted")
             self.locationManager.startUpdatingLocation()
         }
     }
@@ -185,11 +196,17 @@ extension DJIRootViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             return pinView
         } else if let mapNodeAnnotation = annotation as? MapNodeAnnotation {
             let annoView = MKMarkerAnnotationView(annotation: mapNodeAnnotation, reuseIdentifier: "MapNode_Annotation")
+            
             annoView.glyphText = String(mapNodeAnnotation.mapNode.elevation)
-            annoView.markerTintColor = .green
+            
+            if mapNodeAnnotation.mapNode.elevation < self.minElevation {
+                annoView.markerTintColor = .red
+            } else if mapNodeAnnotation.onRoute {
+                annoView.markerTintColor = .yellow
+            } else {
+                annoView.markerTintColor = .green
+            }
             annoView.glyphTintColor = .black
-//            MapNodeAnnotationView(annotation: mapNodeAnnotation, reuseIdentifier: "MapNode_Annotation")
-//            mapNodeAnnotation.annotationView = annoView
             return annoView
         } else if let aircraftAnnotation = annotation as? DJIAircraftAnnotation {
             let annoView = DJIAircraftAnnotationView(annotation: aircraftAnnotation, reuseIdentifier: "Aircraft_Annotation")
@@ -202,7 +219,7 @@ extension DJIRootViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         if let mapNodeAnnotation = annotation as? MapNodeAnnotation {
-            print(mapNodeAnnotation.mapNode.id)
+            print(mapNodeAnnotation.mapNode)
         }
     }
 }
@@ -222,8 +239,13 @@ extension DJIRootViewController: DJISDKManagerDelegate, DJIFlightControllerDeleg
     
     func productConnected(_ product: DJIBaseProduct?) {
         if product != nil {
+            print("Product Connected")
             if let flightController = DemoUtility.fetchFlightController() {
                 flightController.delegate = self
+                
+                self.missionOperator?.addListener(toFinished: self, with: DispatchQueue.main) {error in
+                    print(error?.localizedDescription ?? "Mission Execution Finished")
+                }
             }
         } else {
             ShowMessage(title: "Product Disconnected", message: nil, target: nil, cancelBtnTitle: "OK")
@@ -252,43 +274,85 @@ extension DJIRootViewController: DJISDKManagerDelegate, DJIFlightControllerDeleg
 
 
 extension DJIRootViewController: DJIGSButtonViewControllerDelegate {
-    func addBtnActionInGSButtonVC(addBtn: UIButton, GSBtnVC: DJIGSButtonViewController) {
-        if self.isEditingPoints {
-            self.isEditingPoints = false
-            addBtn.setTitle("Add", for: .normal)
-        } else {
-            self.isEditingPoints = true
-            addBtn.setTitle("Finished", for: .normal)
+    @IBAction func floodedBtnAction(_ sender: Any) {
+        if CLLocationCoordinate2DIsValid(self.droneLocation) {
+            self.minElevation = self.mapModel.findNearElevation(self.droneLocation)
+            self.reloadMapAnnotation()
+            
+            self.missionOperator?.stopMission() { error in
+                print(error?.localizedDescription ?? "Stop Mission by Flooded")
+            }
         }
     }
     
-    func stopBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController) {
-        self.missionOperator?.stopMission() { error in
-            print(error?.localizedDescription ?? "Stop Mission Finished")
-        }
-    }
-    
-    func clearBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController) {
-        self.mapController.cleanAllPointsWithMapView(mapView: self.mapView)
-    }
-    
-    func focusBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController) {
-        self.focusMap()
-    }
-    
-    func startBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController) {
-        // TODO: Find best route
+    func findRouteBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?) {
         let routes = self.mapModel.findBestRoute(minElevation: self.minElevation)
+        self.reloadMapAnnotation(routes: routes)
+        
         var waypoints = [CLLocation]()
         for node in routes {
             waypoints.append(CLLocation(latitude: node.lat, longitude: node.lon))
         }
         
+        // Prepare Mission
+        self.waypointMission = DJIMutableWaypointMission()
+        self.waypointMission.removeAllWaypoints()
+        
+        for location in waypoints {
+            if CLLocationCoordinate2DIsValid(location.coordinate) {
+                let waypoint = DJIWaypoint(coordinate: location.coordinate)
+                waypoint.altitude = 30.0
+                self.waypointMission.add(waypoint)
+            }
+        }
+        
+        self.waypointMission.maxFlightSpeed = 10.0
+        self.waypointMission.autoFlightSpeed = 5.0
+        self.waypointMission.headingMode = .auto
+        self.waypointMission.finishedAction = .noAction
+        
+        // Upload to Waypoint Mission
+        if let error = self.missionOperator?.load(self.waypointMission) {
+            print(error)
+        }
+        self.missionOperator?.uploadMission() { error in
+            print(error?.localizedDescription ?? "Upload Mission Finished")
+        }
+    }
+    
+    func startBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?) {
+        self.missionOperator?.startMission() { error in
+            print(error?.localizedDescription ?? "Mission Started")
+//            ShowMessage(title: "Mission Started", message: nil, target: nil, cancelBtnTitle: "OK")
+        }
+    }
+    
+    func stopBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?) {
+        self.missionOperator?.stopMission() { error in
+            print(error?.localizedDescription ?? "Stop Mission Finished")
+        }
+    }
+    
+    func clearBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?) {
+        self.mapController.cleanAllPointsWithMapView(mapView: self.mapView)
+    }
+    
+    func focusBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?) {
+        self.focusMap()
+    }
+    
+    func configBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?) {
+        let waypoints = self.mapController.wayPoints()
         if waypoints.count < 2 {
             ShowMessage(title: "No or not enough waypoints for mission", message: nil, target: nil, cancelBtnTitle: "OK")
             return
         }
         
+        UIView.animate(withDuration: 0.25) {[weak self] in
+            self?.waypointConfigVC.view.alpha = 1.0
+        }
+        
+        // Upload to Waypoint Mission
         self.waypointMission.removeAllWaypoints()
         
         for location in waypoints {
@@ -297,18 +361,6 @@ extension DJIRootViewController: DJIGSButtonViewControllerDelegate {
                 self.waypointMission.add(waypoint)
             }
         }
-        
-        
-        self.missionOperator?.startMission() { error in
-            print(error?.localizedDescription ?? "Mission Started")
-//            ShowMessage(title: "Mission Started", message: nil, target: nil, cancelBtnTitle: "OK")
-        }
-    }
-    
-    func configBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController) {
-        UIView.animate(withDuration: 0.25) {[weak self] in
-            self?.waypointConfigVC.view.alpha = 1.0
-        }
     }
     
     func switchToMode(_ mode: DJIGSViewMode, inGSButtonVC GSBtnVC: DJIGSButtonViewController) {
@@ -316,6 +368,29 @@ extension DJIRootViewController: DJIGSButtonViewControllerDelegate {
             self.focusMap()
         }
     }
+    
+    func addBtnActionInGSButtonVC(addBtn: UIButton, GSBtnVC: DJIGSButtonViewController) {
+        // Find best route
+        let routes = self.mapModel.findBestRoute(minElevation: self.minElevation)
+        var waypoints = [CLLocation]()
+        for node in routes {
+            waypoints.append(CLLocation(latitude: node.lat, longitude: node.lon))
+
+            let annotation = MapNodeAnnotation(mapNode: node)
+            self.mapView.addAnnotation(annotation)
+        }
+        self.mapController.editPoints = waypoints
+        
+//        if self.isEditingPoints {
+//            self.isEditingPoints = false
+//            addBtn.setTitle("Add", for: .normal)
+//        } else {
+//            self.isEditingPoints = true
+//            addBtn.setTitle("Finished", for: .normal)
+//        }
+    }
+    
+    
 }
 
 
@@ -347,10 +422,6 @@ extension DJIRootViewController: DJIWaypointConfigViewControllerDelegate {
         self.missionOperator?.addListener(toFinished: self, with: DispatchQueue.main) {error in
             print(error?.localizedDescription ?? "Mission Execution Finished")
         }
-        
-        self.missionOperator?.addListener(toExecutionEvent: self, with: DispatchQueue.main, andBlock: { event in
-            print(event)
-        })
         
         self.missionOperator?.uploadMission() { error in
             print(error?.localizedDescription ?? "Upload Mission Finished")
