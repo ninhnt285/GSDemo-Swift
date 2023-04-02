@@ -8,6 +8,8 @@
 import UIKit
 import DJISDK
 import MapKit
+import DJIWidget
+import Vision
 
 class DJIRootViewController: UIViewController {
     
@@ -22,16 +24,37 @@ class DJIRootViewController: UIViewController {
     var tapGesture: UITapGestureRecognizer!
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var cameraView: UIView!
+    
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var modeLabel: UILabel!
     @IBOutlet weak var gpsLabel: UILabel!
     @IBOutlet weak var hsLabel: UILabel!
     @IBOutlet weak var vsLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
     
     var waypointMission = DJIMutableWaypointMission()
     var mapModel: MapModel!
     var minElevation: Double = 0.0
+    
+    
+    // YOLO Variables
+    let yolo = YOLO()
+    var request: VNCoreMLRequest!
+    var isProcessing: Bool = false
+    let ciContext = CIContext()
+    var resizedPixelBuffer: CVPixelBuffer?
+
+    var boundingBoxes = [BoundingBox]()
+    var colors: [UIColor] = []
+
+    
+    var startTimes: [CFTimeInterval] = []
+    var framesDone = 0
+    var frameCapturingStartTime = CACurrentMediaTime() 
+    let semaphore = DispatchSemaphore(value: 2)
+    
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -44,18 +67,22 @@ class DJIRootViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         self.locationManager.stopUpdatingLocation()
         UIApplication.shared.isIdleTimerDisabled = false
+        
+        self.productDisconnected()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.startUpdateLocation()
+//        self.startUpdateLocation()
         self.registerApp()
         
         self.initUI()
         self.initData()
+        self.setupYOLO()
     }
     
     func initData() {
@@ -130,7 +157,7 @@ class DJIRootViewController: UIViewController {
     }
     
     @IBAction func loadMapBtnAction(_ sender: Any) {
-        let mapFile = "map1"
+        let mapFile = "map2"
         
         if let url = Bundle.main.url(forResource: mapFile, withExtension: "json") {
             do {
@@ -165,6 +192,52 @@ class DJIRootViewController: UIViewController {
             
             if routes.count == 0 || point.onRoute || point.mapNode.elevation < self.minElevation {
                 self.mapView.addAnnotation(point)
+            }
+        }
+    }
+    
+    func ShowMessage(title: String?, message: String? = nil, target: Any? = nil, cancelBtnTitle: String? = nil) {
+        DispatchQueue.main.async {
+            self.messageLabel.text = title
+        }
+    }
+}
+
+
+
+extension DJIRootViewController: DJIVideoFeedListener, DJICameraDelegate {
+    func setupVideoPreview() {
+        DJIVideoPreviewer.instance().setView(self.cameraView)
+        if let _ = DJISDKManager.product() { // Product
+            DJISDKManager.videoFeeder()?.primaryVideoFeed.add(self, with: nil)
+        }
+        DJIVideoPreviewer.instance().start()
+    }
+    
+    func resetVideoPreview() {
+        DJIVideoPreviewer.instance().unSetView()
+        DJISDKManager.videoFeeder()?.primaryVideoFeed.remove(self)
+    }
+    
+    func fetchCamera() -> DJICamera? {
+        if let product = DJISDKManager.product() {
+            if product.isKind(of: DJIAircraft.self) {
+                return product.camera
+            } else if product.isKind(of: DJIHandheld.self) {
+                return product.camera
+            }
+        }
+        return nil
+    }
+    
+    func videoFeed(_ videoFeed: DJIVideoFeed, didUpdateVideoData videoData: Data) {
+        let videoNSData = videoData as NSData
+        let videoBuffer = UnsafeMutablePointer<UInt8>.allocate(capacity: videoNSData.length)
+        videoNSData.getBytes(videoBuffer, length: videoNSData.length)
+        DJIVideoPreviewer.instance().push(videoBuffer, length: Int32(videoNSData.length))
+        DJIVideoPreviewer.instance().snapshotPreview { image in
+            if let image = image {
+                self.predict(image: image)
             }
         }
     }
@@ -219,7 +292,7 @@ extension DJIRootViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         if let mapNodeAnnotation = annotation as? MapNodeAnnotation {
-            print(mapNodeAnnotation.mapNode)
+            print(mapNodeAnnotation.mapNode ?? "Not found MapNode data")
         }
     }
 }
@@ -232,24 +305,38 @@ extension DJIRootViewController: DJISDKManagerDelegate, DJIFlightControllerDeleg
             let registerResult = "Registration Error, \(error!.localizedDescription)"
             ShowMessage(title: "Registration Result", message: registerResult, target: nil, cancelBtnTitle: "OK")
         } else {
-            print("Registered Successfully! Connecting to product...")
+            self.ShowMessage(title: "Registered Successfully! Connecting to product...")
             DJISDKManager.startConnectionToProduct()
         }
     }
     
     func productConnected(_ product: DJIBaseProduct?) {
         if product != nil {
-            print("Product Connected")
+            self.ShowMessage(title: "Product Connected")
             if let flightController = DemoUtility.fetchFlightController() {
                 flightController.delegate = self
                 
-                self.missionOperator?.addListener(toFinished: self, with: DispatchQueue.main) {error in
-                    print(error?.localizedDescription ?? "Mission Execution Finished")
+                if let camera = self.fetchCamera() {
+                    camera.delegate = self
+                }
+                self.setupVideoPreview()
+                
+                self.missionOperator?.addListener(toFinished: self, with: DispatchQueue.global(qos: .background)) {error in
+                    self.ShowMessage(title: error?.localizedDescription ?? "Mission Execution Finished")
                 }
             }
         } else {
             ShowMessage(title: "Product Disconnected", message: nil, target: nil, cancelBtnTitle: "OK")
         }
+    }
+    
+    func productDisconnected() {
+        if let camera = self.fetchCamera() {
+            if camera.delegate === self {
+                camera.delegate = nil
+            }
+        }
+        self.resetVideoPreview()
     }
     
     func flightController(_ fc: DJIFlightController, didUpdate state: DJIFlightControllerState) {
@@ -280,7 +367,7 @@ extension DJIRootViewController: DJIGSButtonViewControllerDelegate {
             self.reloadMapAnnotation()
             
             self.missionOperator?.stopMission() { error in
-                print(error?.localizedDescription ?? "Stop Mission by Flooded")
+                self.ShowMessage(title: error?.localizedDescription ?? "Stop Mission by Flooded")
             }
         }
     }
@@ -313,23 +400,23 @@ extension DJIRootViewController: DJIGSButtonViewControllerDelegate {
         
         // Upload to Waypoint Mission
         if let error = self.missionOperator?.load(self.waypointMission) {
-            print(error)
+            self.ShowMessage(title: error.localizedDescription)
         }
         self.missionOperator?.uploadMission() { error in
-            print(error?.localizedDescription ?? "Upload Mission Finished")
+            self.ShowMessage(title: error?.localizedDescription ?? "Upload Mission Finished")
         }
     }
     
     func startBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?) {
         self.missionOperator?.startMission() { error in
-            print(error?.localizedDescription ?? "Mission Started")
+            self.ShowMessage(title: error?.localizedDescription ?? "Mission Started")
 //            ShowMessage(title: "Mission Started", message: nil, target: nil, cancelBtnTitle: "OK")
         }
     }
     
     func stopBtnActionInGSButtonVC(GSBtnVC: DJIGSButtonViewController?) {
         self.missionOperator?.stopMission() { error in
-            print(error?.localizedDescription ?? "Stop Mission Finished")
+            self.ShowMessage(title: error?.localizedDescription ?? "Stop Mission Finished")
         }
     }
     
@@ -420,11 +507,11 @@ extension DJIRootViewController: DJIWaypointConfigViewControllerDelegate {
         self.missionOperator?.load(self.waypointMission)
         
         self.missionOperator?.addListener(toFinished: self, with: DispatchQueue.main) {error in
-            print(error?.localizedDescription ?? "Mission Execution Finished")
+            self.ShowMessage(title: error?.localizedDescription ?? "Mission Execution Finished")
         }
         
         self.missionOperator?.uploadMission() { error in
-            print(error?.localizedDescription ?? "Upload Mission Finished")
+            self.ShowMessage(title: error?.localizedDescription ?? "Upload Mission Finished")
         }
     }
     

@@ -21,11 +21,23 @@
 		01CCF90429B64E3E00ABDC2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01CCF90229B64E3E00ABDC2C /* LaunchScreen.storyboard */; };
 		01CCF90C29B64FAA00ABDC2C /* DJIRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CCF90B29B64FAA00ABDC2C /* DJIRootViewController.swift */; };
 		01CCF90E29B6548D00ABDC2C /* DJIMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CCF90D29B6548D00ABDC2C /* DJIMapController.swift */; };
+		01CDA82429D3803D00D4D782 /* map2.json in Resources */ = {isa = PBXBuildFile; fileRef = 01CDA82329D3803D00D4D782 /* map2.json */; };
+		01CDA86129D6967200D4D782 /* yolov7.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 01CDA86029D6967200D4D782 /* yolov7.mlpackage */; };
+		01CDA86329D764B100D4D782 /* TinyYOLO.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 01CDA86229D764B100D4D782 /* TinyYOLO.mlmodel */; };
+		01CDA86529D7785A00D4D782 /* yolov5n.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 01CDA86429D7785A00D4D782 /* yolov5n.mlmodel */; };
+		01CDA86829D7AE8A00D4D782 /* ObjectDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDA86729D7AE8A00D4D782 /* ObjectDetection.swift */; };
+		01CDA86A29D7AEEF00D4D782 /* Labeling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CDA86929D7AEEF00D4D782 /* Labeling.swift */; };
 		01FA3D1329CA4A9700344977 /* map1.json in Resources */ = {isa = PBXBuildFile; fileRef = 01FA3D1229CA4A9700344977 /* map1.json */; };
 		01FA3D1529CA97DC00344977 /* MapNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D1429CA97DC00344977 /* MapNode.swift */; };
 		01FA3D1729CAA7F100344977 /* MapNodeAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D1629CAA7F100344977 /* MapNodeAnnotation.swift */; };
 		01FA3D1929CAA9EF00344977 /* MapNodeAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D1829CAA9EF00344977 /* MapNodeAnnotationView.swift */; };
-		FB213F5AB4A3BAAA90902164 /* libPods-GSDemo-Swift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97ED5063C0A55A17D24B93C6 /* libPods-GSDemo-Swift.a */; };
+		01FA3D1E29CFFB9A00344977 /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D1D29CFFB9A00344977 /* BoundingBox.swift */; };
+		01FA3D2429CFFBD900344977 /* YOLO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D2329CFFBD900344977 /* YOLO.swift */; };
+		01FA3D2829CFFC7700344977 /* CVPixelBuffer+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D2729CFFC7700344977 /* CVPixelBuffer+Helpers.swift */; };
+		01FA3D2A29CFFC8300344977 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D2929CFFC8300344977 /* Helpers.swift */; };
+		01FA3D2C29CFFC9000344977 /* UIImage+CVPixelBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D2B29CFFC9000344977 /* UIImage+CVPixelBuffer.swift */; };
+		01FA3D3029CFFF1B00344977 /* DJIRootViewController+YOLO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FA3D2F29CFFF1B00344977 /* DJIRootViewController+YOLO.swift */; };
+		057491B5F1687FCEFD4CD282 /* Pods_GSDemo_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB790064A99BC6656D4731BF /* Pods_GSDemo_Swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,13 +57,25 @@
 		01CCF90529B64E3E00ABDC2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01CCF90B29B64FAA00ABDC2C /* DJIRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIRootViewController.swift; sourceTree = "<group>"; };
 		01CCF90D29B6548D00ABDC2C /* DJIMapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJIMapController.swift; sourceTree = "<group>"; };
+		01CDA82329D3803D00D4D782 /* map2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map2.json; sourceTree = "<group>"; };
+		01CDA86029D6967200D4D782 /* yolov7.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = yolov7.mlpackage; sourceTree = "<group>"; };
+		01CDA86229D764B100D4D782 /* TinyYOLO.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TinyYOLO.mlmodel; sourceTree = "<group>"; };
+		01CDA86429D7785A00D4D782 /* yolov5n.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = yolov5n.mlmodel; sourceTree = "<group>"; };
+		01CDA86729D7AE8A00D4D782 /* ObjectDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetection.swift; sourceTree = "<group>"; };
+		01CDA86929D7AEEF00D4D782 /* Labeling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labeling.swift; sourceTree = "<group>"; };
 		01FA3D1229CA4A9700344977 /* map1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map1.json; sourceTree = "<group>"; };
 		01FA3D1429CA97DC00344977 /* MapNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNode.swift; sourceTree = "<group>"; };
 		01FA3D1629CAA7F100344977 /* MapNodeAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNodeAnnotation.swift; sourceTree = "<group>"; };
 		01FA3D1829CAA9EF00344977 /* MapNodeAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapNodeAnnotationView.swift; sourceTree = "<group>"; };
+		01FA3D1D29CFFB9A00344977 /* BoundingBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
+		01FA3D2329CFFBD900344977 /* YOLO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YOLO.swift; sourceTree = "<group>"; };
+		01FA3D2729CFFC7700344977 /* CVPixelBuffer+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Helpers.swift"; sourceTree = "<group>"; };
+		01FA3D2929CFFC8300344977 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		01FA3D2B29CFFC9000344977 /* UIImage+CVPixelBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+CVPixelBuffer.swift"; sourceTree = "<group>"; };
+		01FA3D2F29CFFF1B00344977 /* DJIRootViewController+YOLO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DJIRootViewController+YOLO.swift"; sourceTree = "<group>"; };
 		3278292941D89A5786E71D44 /* Pods-GSDemo-Swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GSDemo-Swift.debug.xcconfig"; path = "Target Support Files/Pods-GSDemo-Swift/Pods-GSDemo-Swift.debug.xcconfig"; sourceTree = "<group>"; };
 		4EE1288561BDB72024F477EA /* Pods-GSDemo-Swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GSDemo-Swift.release.xcconfig"; path = "Target Support Files/Pods-GSDemo-Swift/Pods-GSDemo-Swift.release.xcconfig"; sourceTree = "<group>"; };
-		97ED5063C0A55A17D24B93C6 /* libPods-GSDemo-Swift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GSDemo-Swift.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB790064A99BC6656D4731BF /* Pods_GSDemo_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GSDemo_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB213F5AB4A3BAAA90902164 /* libPods-GSDemo-Swift.a in Frameworks */,
+				057491B5F1687FCEFD4CD282 /* Pods_GSDemo_Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,10 +111,48 @@
 		01CCF8F629B64E3C00ABDC2C /* GSDemo-Swift */ = {
 			isa = PBXGroup;
 			children = (
-				01FA3D1129CA496400344977 /* maps */,
+				01CDA86629D7AE3A00D4D782 /* Object Detection */,
+				01FA3D1C29CFF60C00344977 /* YOLO */,
+				01FA3D1B29CFF5E300344977 /* DJI */,
+				01FA3D1129CA496400344977 /* MapData */,
 				01CCF90B29B64FAA00ABDC2C /* DJIRootViewController.swift */,
+				01FA3D2F29CFFF1B00344977 /* DJIRootViewController+YOLO.swift */,
 				01CCF8F729B64E3C00ABDC2C /* AppDelegate.swift */,
 				01CCF8F929B64E3C00ABDC2C /* SceneDelegate.swift */,
+				01CCF8FD29B64E3C00ABDC2C /* Main.storyboard */,
+				01CCF90229B64E3E00ABDC2C /* LaunchScreen.storyboard */,
+				01CCF90029B64E3E00ABDC2C /* Assets.xcassets */,
+				01CCF90529B64E3E00ABDC2C /* Info.plist */,
+			);
+			path = "GSDemo-Swift";
+			sourceTree = "<group>";
+		};
+		01CDA86629D7AE3A00D4D782 /* Object Detection */ = {
+			isa = PBXGroup;
+			children = (
+				01CDA86029D6967200D4D782 /* yolov7.mlpackage */,
+				01CDA86729D7AE8A00D4D782 /* ObjectDetection.swift */,
+				01CDA86929D7AEEF00D4D782 /* Labeling.swift */,
+			);
+			path = "Object Detection";
+			sourceTree = "<group>";
+		};
+		01FA3D1129CA496400344977 /* MapData */ = {
+			isa = PBXGroup;
+			children = (
+				01FA3D1229CA4A9700344977 /* map1.json */,
+				01CDA82329D3803D00D4D782 /* map2.json */,
+				01FA3D1429CA97DC00344977 /* MapNode.swift */,
+				01FA3D1629CAA7F100344977 /* MapNodeAnnotation.swift */,
+				01FA3D1829CAA9EF00344977 /* MapNodeAnnotationView.swift */,
+			);
+			path = MapData;
+			sourceTree = "<group>";
+		};
+		01FA3D1B29CFF5E300344977 /* DJI */ = {
+			isa = PBXGroup;
+			children = (
+				01B0936929B6F3D100A58671 /* DemoUtility.swift */,
 				015A5F9329B68E8200E9CA57 /* DJIAircraftAnnotation.swift */,
 				01B0936729B6E87400A58671 /* DJIAircraftAnnotationView.swift */,
 				01CCF90D29B6548D00ABDC2C /* DJIMapController.swift */,
@@ -98,24 +160,22 @@
 				01B0936C29B7C5A100A58671 /* DJIGSButtonViewController.xib */,
 				01B0936F29BA491000A58671 /* DJIWaypointConfigViewController.swift */,
 				01B0937029BA491000A58671 /* DJIWaypointConfigViewController.xib */,
-				01CCF8FD29B64E3C00ABDC2C /* Main.storyboard */,
-				01CCF90229B64E3E00ABDC2C /* LaunchScreen.storyboard */,
-				01CCF90029B64E3E00ABDC2C /* Assets.xcassets */,
-				01B0936929B6F3D100A58671 /* DemoUtility.swift */,
-				01CCF90529B64E3E00ABDC2C /* Info.plist */,
 			);
-			path = "GSDemo-Swift";
+			path = DJI;
 			sourceTree = "<group>";
 		};
-		01FA3D1129CA496400344977 /* maps */ = {
+		01FA3D1C29CFF60C00344977 /* YOLO */ = {
 			isa = PBXGroup;
 			children = (
-				01FA3D1229CA4A9700344977 /* map1.json */,
-				01FA3D1429CA97DC00344977 /* MapNode.swift */,
-				01FA3D1629CAA7F100344977 /* MapNodeAnnotation.swift */,
-				01FA3D1829CAA9EF00344977 /* MapNodeAnnotationView.swift */,
+				01CDA86429D7785A00D4D782 /* yolov5n.mlmodel */,
+				01CDA86229D764B100D4D782 /* TinyYOLO.mlmodel */,
+				01FA3D1D29CFFB9A00344977 /* BoundingBox.swift */,
+				01FA3D2729CFFC7700344977 /* CVPixelBuffer+Helpers.swift */,
+				01FA3D2929CFFC8300344977 /* Helpers.swift */,
+				01FA3D2B29CFFC9000344977 /* UIImage+CVPixelBuffer.swift */,
+				01FA3D2329CFFBD900344977 /* YOLO.swift */,
 			);
-			path = maps;
+			path = YOLO;
 			sourceTree = "<group>";
 		};
 		B0B9BFEB98AC643C433A073C /* Pods */ = {
@@ -130,7 +190,7 @@
 		E2AE93010D9E2E0D7B325CEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				97ED5063C0A55A17D24B93C6 /* libPods-GSDemo-Swift.a */,
+				FB790064A99BC6656D4731BF /* Pods_GSDemo_Swift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -198,6 +258,7 @@
 				01B0936E29B7C5A100A58671 /* DJIGSButtonViewController.xib in Resources */,
 				01B0937229BA491000A58671 /* DJIWaypointConfigViewController.xib in Resources */,
 				01CCF90429B64E3E00ABDC2C /* LaunchScreen.storyboard in Resources */,
+				01CDA82429D3803D00D4D782 /* map2.json in Resources */,
 				01CCF90129B64E3E00ABDC2C /* Assets.xcassets in Resources */,
 				01CCF8FF29B64E3C00ABDC2C /* Main.storyboard in Resources */,
 				01FA3D1329CA4A9700344977 /* map1.json in Resources */,
@@ -259,11 +320,22 @@
 				015A5F9429B68E8200E9CA57 /* DJIAircraftAnnotation.swift in Sources */,
 				01CCF8F829B64E3C00ABDC2C /* AppDelegate.swift in Sources */,
 				01B0936829B6E87400A58671 /* DJIAircraftAnnotationView.swift in Sources */,
+				01FA3D2829CFFC7700344977 /* CVPixelBuffer+Helpers.swift in Sources */,
+				01FA3D2429CFFBD900344977 /* YOLO.swift in Sources */,
+				01FA3D2C29CFFC9000344977 /* UIImage+CVPixelBuffer.swift in Sources */,
+				01CDA86A29D7AEEF00D4D782 /* Labeling.swift in Sources */,
 				01FA3D1529CA97DC00344977 /* MapNode.swift in Sources */,
 				01B0936D29B7C5A100A58671 /* DJIGSButtonViewController.swift in Sources */,
+				01CDA86329D764B100D4D782 /* TinyYOLO.mlmodel in Sources */,
+				01CDA86829D7AE8A00D4D782 /* ObjectDetection.swift in Sources */,
 				01B0937129BA491000A58671 /* DJIWaypointConfigViewController.swift in Sources */,
+				01FA3D2A29CFFC8300344977 /* Helpers.swift in Sources */,
 				01B0936A29B6F3D100A58671 /* DemoUtility.swift in Sources */,
+				01CDA86129D6967200D4D782 /* yolov7.mlpackage in Sources */,
 				01CCF90E29B6548D00ABDC2C /* DJIMapController.swift in Sources */,
+				01FA3D1E29CFFB9A00344977 /* BoundingBox.swift in Sources */,
+				01CDA86529D7785A00D4D782 /* yolov5n.mlmodel in Sources */,
+				01FA3D3029CFFF1B00344977 /* DJIRootViewController+YOLO.swift in Sources */,
 				01CCF8FA29B64E3C00ABDC2C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,7 +495,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -456,7 +528,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

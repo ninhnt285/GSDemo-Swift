@@ -107,7 +107,7 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H3w-YA-G02">
-                                <rect key="frame" x="20" y="359" width="100" height="35"/>
+                                <rect key="frame" x="616" y="45" width="100" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Load Map">
                                     <color key="baseBackgroundColor" systemColor="systemGray2Color"/>
@@ -117,7 +117,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QAY-IE-IPT">
-                                <rect key="frame" x="128" y="359" width="86" height="35"/>
+                                <rect key="frame" x="630" y="88" width="86" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Flooded">
                                     <color key="baseBackgroundColor" systemColor="systemGray2Color"/>
@@ -126,28 +126,50 @@
                                     <action selector="floodedBtnAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zga-YZ-xW9"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htg-QO-UMq">
+                                <rect key="frame" x="0.0" y="393" width="455" height="21"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gxh-2P-cwr">
+                                <rect key="frame" x="455" y="256" width="281" height="158"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="281" id="5aw-wl-VmQ"/>
+                                    <constraint firstAttribute="height" constant="158" id="hUj-1k-g9m"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="H3w-YA-G02" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="3Ef-Cp-y6q"/>
+                            <constraint firstItem="gxh-2P-cwr" firstAttribute="bottom" secondItem="8Ta-Ga-hx1" secondAttribute="bottom" id="3Yw-vV-Rzr"/>
                             <constraint firstItem="8Ta-Ga-hx1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4a2-up-Bru"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="H3w-YA-G02" secondAttribute="bottom" constant="20" id="ABf-cQ-8ai"/>
+                            <constraint firstItem="H3w-YA-G02" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="45" id="7AQ-aM-hUm"/>
+                            <constraint firstItem="gxh-2P-cwr" firstAttribute="trailing" secondItem="8Ta-Ga-hx1" secondAttribute="trailing" id="B01-2s-CnU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="duB-nU-FNw" secondAttribute="trailing" id="FEc-Xg-4rR"/>
-                            <constraint firstItem="QAY-IE-IPT" firstAttribute="centerY" secondItem="H3w-YA-G02" secondAttribute="centerY" id="HsX-jy-6wS"/>
                             <constraint firstItem="duB-nU-FNw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="I3J-WE-Pni"/>
                             <constraint firstItem="duB-nU-FNw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Mqt-0u-CpA"/>
+                            <constraint firstItem="QAY-IE-IPT" firstAttribute="trailing" secondItem="H3w-YA-G02" secondAttribute="trailing" id="Os0-1G-EkH"/>
+                            <constraint firstItem="QAY-IE-IPT" firstAttribute="top" secondItem="H3w-YA-G02" secondAttribute="bottom" constant="8" symbolic="YES" id="QMy-s4-YD4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8Ta-Ga-hx1" secondAttribute="bottom" id="Ti0-2u-GPT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="H3w-YA-G02" secondAttribute="trailing" constant="20" id="Y8t-ZG-tci"/>
+                            <constraint firstItem="htg-QO-UMq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZWa-HC-lbH"/>
+                            <constraint firstItem="gxh-2P-cwr" firstAttribute="leading" secondItem="htg-QO-UMq" secondAttribute="trailing" id="c3m-rQ-dVJ"/>
                             <constraint firstItem="8Ta-Ga-hx1" firstAttribute="top" secondItem="duB-nU-FNw" secondAttribute="bottom" id="esb-MV-ITH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="htg-QO-UMq" secondAttribute="bottom" id="fGD-Iy-CVV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8Ta-Ga-hx1" secondAttribute="trailing" id="fuL-jf-uJJ"/>
-                            <constraint firstItem="QAY-IE-IPT" firstAttribute="leading" secondItem="H3w-YA-G02" secondAttribute="trailing" constant="8" symbolic="YES" id="gKn-a0-2cb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="altitudeLabel" destination="V2A-hm-6A4" id="PPc-UT-aUo"/>
+                        <outlet property="cameraView" destination="gxh-2P-cwr" id="mNQ-5u-ii1"/>
                         <outlet property="gpsLabel" destination="Tla-5E-UgI" id="pJC-6m-Xmh"/>
                         <outlet property="hsLabel" destination="VFR-u7-kAc" id="whV-cj-XzY"/>
                         <outlet property="mapView" destination="8Ta-Ga-hx1" id="NLn-M6-Xq3"/>
+                        <outlet property="messageLabel" destination="htg-QO-UMq" id="yxO-ie-Ao1"/>
                         <outlet property="modeLabel" destination="JNC-UD-7NE" id="Zng-ec-7SK"/>
                         <outlet property="topBarView" destination="duB-nU-FNw" id="9s3-7u-kym"/>
                         <outlet property="vsLabel" destination="jKl-zq-dx2" id="CxR-if-N7W"/>
