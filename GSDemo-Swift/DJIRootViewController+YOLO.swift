@@ -32,9 +32,9 @@ extension DJIRootViewController {
 
       // Make colors for the bounding boxes. There is one color for each class,
       // 20 classes in total.
-      for r: CGFloat in [0.2, 0.4, 0.6, 0.8, 1.0] {
-        for g: CGFloat in [0.3, 0.7] {
-          for b: CGFloat in [0.4, 0.8] {
+        for r: CGFloat in [1.0, 0.2, 0.4, 0.6, 0.8] {
+            for g: CGFloat in [0.3, 0.7] {
+                for b: CGFloat in [0.4, 0.8] {
             let color = UIColor(red: r, green: g, blue: b, alpha: 1)
             colors.append(color)
           }
@@ -73,37 +73,72 @@ extension DJIRootViewController {
     }
     
     func predict(image: UIImage) {
-        if !isProcessing {
-            if let pixelBuffer = image.pixelBuffer(width: YOLO.inputWidth, height: YOLO.inputHeight) {
-                isProcessing = true
-                predict(pixelBuffer: pixelBuffer)
+        if !isProcessing && self.detector.ready {
+            if CACurrentMediaTime() - self.startTime < 0.5 {
+                return
             }
+            
+//            if let pixelBuffer = image.pixelBuffer(width: YOLO.inputWidth, height: YOLO.inputHeight) {
+            if let ciImage = CIImage(image: image) {
+                isProcessing = true
+                self.startTime = CACurrentMediaTime()
+//                let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+                let observations = self.detector.detectAndProcess(image: ciImage)
+//                print(observations.count)
+                
+                // TODO: Compute Bouding Box
+                var boundingBoxes = [YOLO.Prediction]()
+                for observation in observations {
+                    if observation.confidence > 0.7 {
+                        let prediction = YOLO.Prediction(classIndex: 0, score: observation.confidence, rect: observation.boundingBox)
+                        boundingBoxes.append(prediction)
+                    }
+                }
+
+                let elapsed = CACurrentMediaTime() - startTime
+                showOnMainThread(boundingBoxes, elapsed)
+//                self.show(predictions: boundingBoxes)
+                isProcessing = false
+            }
+            
+            
+            
+//            if let pixelBuffer = image.pixelBuffer(width: YOLO.inputWidth, height: YOLO.inputHeight) {
+//                isProcessing = true
+//                predict(pixelBuffer: pixelBuffer)
+//            }
         }
+    }
+    
+    func displayBoxes() {
+        
     }
 
     func predict(pixelBuffer: CVPixelBuffer) {
-      // Measure how long it takes to predict a single video frame.
-      let startTime = CACurrentMediaTime()
+        // Measure how long it takes to predict a single video frame.
+        let startTime = CACurrentMediaTime()
 
-      // Resize the input with Core Image to 416x416.
-      guard let resizedPixelBuffer = resizedPixelBuffer else { return }
-      let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-      let sx = CGFloat(YOLO.inputWidth) / CGFloat(CVPixelBufferGetWidth(pixelBuffer))
-      let sy = CGFloat(YOLO.inputHeight) / CGFloat(CVPixelBufferGetHeight(pixelBuffer))
-      let scaleTransform = CGAffineTransform(scaleX: sx, y: sy)
-      let scaledImage = ciImage.transformed(by: scaleTransform)
-      ciContext.render(scaledImage, to: resizedPixelBuffer)
+        // Resize the input with Core Image to 640x640
+        guard let resizedPixelBuffer = resizedPixelBuffer else { return }
+        
+        
+        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+        let sx = CGFloat(YOLO.inputWidth) / CGFloat(CVPixelBufferGetWidth(pixelBuffer))
+        let sy = CGFloat(YOLO.inputHeight) / CGFloat(CVPixelBufferGetHeight(pixelBuffer))
+        let scaleTransform = CGAffineTransform(scaleX: sx, y: sy)
+        let scaledImage = ciImage.transformed(by: scaleTransform)
+        ciContext.render(scaledImage, to: resizedPixelBuffer)
 
-      // This is an alternative way to resize the image (using vImage):
-      //if let resizedPixelBuffer = resizePixelBuffer(pixelBuffer,
-      //                                              width: YOLO.inputWidth,
-      //                                              height: YOLO.inputHeight)
+        // This is an alternative way to resize the image (using vImage):
+        //if let resizedPixelBuffer = resizePixelBuffer(pixelBuffer,
+        //                                              width: YOLO.inputWidth,
+        //                                              height: YOLO.inputHeight)
 
-      // Resize the input to 416x416 and give it to our model.
-      if let boundingBoxes = try? yolo.predict(image: resizedPixelBuffer) {
-          print(boundingBoxes.count)
-          let elapsed = CACurrentMediaTime() - startTime
-          showOnMainThread(boundingBoxes, elapsed)
+        // Resize the input to 640x640 and give it to our model.
+        if let boundingBoxes = try? yolo.predict(image: resizedPixelBuffer) {
+//            print(boundingBoxes.count)
+            let elapsed = CACurrentMediaTime() - startTime
+            showOnMainThread(boundingBoxes, elapsed)
       }
     }
 
@@ -138,31 +173,44 @@ extension DJIRootViewController {
     }
 
     func show(predictions: [YOLO.Prediction]) {
+//        if predictions.count > 0 {
+//            print(cameraView.bounds.size)
+//            print(predictions[0])
+//        }
+        
       for i in 0..<boundingBoxes.count {
         if i < predictions.count {
           let prediction = predictions[i]
 
           // The predicted bounding box is in the coordinate space of the input
-          // image, which is a square image of 416x416 pixels. We want to show it
+          // image, which is a square image of 640x640 pixels. We want to show it
           // on the video preview, which is as wide as the screen and has a 4:3
           // aspect ratio. The video preview also may be letterboxed at the top
           // and bottom.
+            
           let width = cameraView.bounds.width
-          let height = width * 4 / 3
-          let scaleX = width / CGFloat(YOLO.inputWidth)
-          let scaleY = height / CGFloat(YOLO.inputHeight)
-          let top = (cameraView.bounds.height - height) / 2
+          let height = cameraView.bounds.height
+//          let scaleX = width / CGFloat(YOLO.inputWidth)
+//          let scaleY = height / CGFloat(YOLO.inputHeight)
+//          let top = (cameraView.bounds.height - height) / 2
 
           // Translate and scale the rectangle to our own coordinate system.
           var rect = prediction.rect
-          rect.origin.x *= scaleX
-          rect.origin.y *= scaleY
-          rect.origin.y += top
-          rect.size.width *= scaleX
-          rect.size.height *= scaleY
+            
+            
+//          rect.origin.x *= scaleX
+//          rect.origin.y *= scaleY
+//          rect.origin.y += top
+//          rect.size.width *= scaleX
+//          rect.size.height *= scaleY
+            
+//            rect.origin.x = rect.origin.x * width
+//            rect.origin.y = rect.origin.y * height
+//            rect.size.width *= width
+//            rect.size.height *= height
 
           // Show the bounding box.
-          let label = String(format: "%@ %.1f", labels[prediction.classIndex], prediction.score * 100)
+          let label = String(format: "%@ %.1f/%", labels[prediction.classIndex], prediction.score * 100)
           let color = colors[prediction.classIndex]
           boundingBoxes[i].show(frame: rect, label: label, color: color)
         } else {

@@ -10,6 +10,7 @@ import Vision
 import CoreImage
 
 class ObjectDetection {
+    let maxBoudings = YOLO.maxBoundingBoxes
     var detectionRequest:VNCoreMLRequest!
     var ready = false
     
@@ -30,11 +31,11 @@ class ObjectDetection {
         }
     }
     
-    func detectAndProcess(image:CIImage)-> [ProcessedObservation] {
+    func detectAndProcess(image:CIImage,_ viewSize: CGSize = CGSize(width: 256, height: 144))-> [ProcessedObservation] {
         
         let observations = self.detect(image: image)
         
-        let processedObservations = self.processObservation(observations: observations, viewSize: image.extent.size)
+        let processedObservations = self.processObservation(observations: observations, viewSize: viewSize)
         
         return processedObservations
     }
@@ -53,7 +54,6 @@ class ObjectDetection {
         } catch let error {
             fatalError("failed to detect: \(error)")
         }
-        
     }
     
     
@@ -61,7 +61,12 @@ class ObjectDetection {
        
         var processedObservations:[ProcessedObservation] = []
         
+        var count = 0
         for observation in observations where observation is VNRecognizedObjectObservation {
+            count += 1
+            if count > self.maxBoudings {
+                break
+            }
             
             let objectObservation = observation as! VNRecognizedObjectObservation
             

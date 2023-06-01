@@ -8,7 +8,7 @@ class YOLO {
   public static let maxBoundingBoxes = 10
 
   // Tweak these values to get more or fewer predictions.
-  let confidenceThreshold: Double = 0.3
+  let confidenceThreshold: Double = 0.7
   let iouThreshold: Double = 0.5
 
   struct Prediction {
@@ -40,7 +40,13 @@ class YOLO {
       for i in 0..<min(features.confidence.count, YOLO.maxBoundingBoxes) {
           if confidence[i].doubleValue > self.confidenceThreshold {
               let j = i * 4;
-              let rect = CGRect(x: Int(coords[j].floatValue * 640.0), y: Int(coords[j+1].floatValue * 640.0), width: Int(coords[j+2].floatValue * 640.0), height: Int(coords[j+3].floatValue * 640.0))
+              
+              let rect = CGRect(
+                x: coords[j].doubleValue,
+                y: coords[j+1].doubleValue,
+                width: coords[j+2].doubleValue,
+                height: coords[j+3].doubleValue
+              )
               let prediction = Prediction(classIndex: 0, score: confidence[i].floatValue, rect: rect)
               predictions.append(prediction)
           }

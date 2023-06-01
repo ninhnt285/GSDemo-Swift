@@ -9,7 +9,7 @@
   },
   "Inputs" : {
     "image" : {
-      "MLFeatureShortDescription" : ""
+      "MLFeatureShortDescription" : "--"
     },
     "confidenceThreshold" : {
       "MLFeatureShortDescription" : "(optional) Confidence Threshold override (Default: 0.4)"

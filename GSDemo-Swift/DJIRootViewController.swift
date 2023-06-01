@@ -38,6 +38,8 @@ class DJIRootViewController: UIViewController {
     var mapModel: MapModel!
     var minElevation: Double = 0.0
     
+    // YOLO 2
+    let detector = ObjectDetection()
     
     // YOLO Variables
     let yolo = YOLO()
@@ -54,6 +56,8 @@ class DJIRootViewController: UIViewController {
     var framesDone = 0
     var frameCapturingStartTime = CACurrentMediaTime() 
     let semaphore = DispatchSemaphore(value: 2)
+    
+    var startTime: CFTimeInterval = 0.0
     
     
     override var prefersStatusBarHidden: Bool {
@@ -156,8 +160,8 @@ class DJIRootViewController: UIViewController {
         }
     }
     
-    @IBAction func loadMapBtnAction(_ sender: Any) {
-        let mapFile = "map2"
+    @IBAction func loadMapBtnAction(_ sender: UIButton) {
+        let mapFile = "map\(sender.tag)"
         
         if let url = Bundle.main.url(forResource: mapFile, withExtension: "json") {
             do {
@@ -393,8 +397,8 @@ extension DJIRootViewController: DJIGSButtonViewControllerDelegate {
             }
         }
         
-        self.waypointMission.maxFlightSpeed = 10.0
-        self.waypointMission.autoFlightSpeed = 5.0
+        self.waypointMission.maxFlightSpeed = 15.0
+        self.waypointMission.autoFlightSpeed = 10.0
         self.waypointMission.headingMode = .auto
         self.waypointMission.finishedAction = .noAction
         
